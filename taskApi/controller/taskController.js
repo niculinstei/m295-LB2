@@ -77,22 +77,32 @@ function getCurrentId() {
   return listOfTasks.length + 1;
 }
 
+function logErorr(statusCode, message, path) {
+  console.error(`${statusCode} ${message} ${path}`);
+}
+
+function logSuccess(statusCode, message, path) {
+  console.log(`${statusCode} ${message} ${path}`);
+}
+
 router.get('/', (req, res) => {
   if (!userIslogedIn(req)) {
     console.error('not logged in');
+    logErorr(401, 'not loged in', 'GET/tasks/');
     return res.status(401).json({ error: 'not logged in' });
   }
+  logSuccess(200, 'returned all tasks', 'GET/tasks/');
   return res.json(listOfTasks.filter((task) => task.author === req.session.email));
 });
 
 router.post('/', (req, res) => {
   if (!userIslogedIn(req)) {
-    console.error('not logged in');
+    logErorr(401, 'not loged in', 'POST/tasks/');
     return res.status(401).json({ error: 'not logged in' });
   }
   const task = req.body;
   if (!task.title) {
-    console.error('title can not be empty');
+    logErorr(406, 'title can not be empty', 'POST/tasks/');
     return res.status(406).json({ error: 'title can not be empty' });
   }
   const taskToAdd = {
@@ -103,13 +113,14 @@ router.post('/', (req, res) => {
     author: req.session.email,
   };
   listOfTasks.push(taskToAdd);
-  console.log('task successfully added');
+  console.log('');
+  logSuccess(201, 'task successfully added', 'POST/tasks/');
   return res.status(201).json(taskToAdd);
 });
 
 router.get('/:id', (req, res) => {
   if (!userIslogedIn(req)) {
-    console.error('not logged in');
+    logErorr(401, 'not loged in', 'GET/tasks/{id}');
     return res.status(401).json({ error: 'not logged in' });
   }
   const taskId = req.params.id;
@@ -117,25 +128,26 @@ router.get('/:id', (req, res) => {
   const task = findTaskById(taskId, req);
 
   if (!task) {
-    console.error('task not found');
+    logErorr(404, 'task not found', `GET/tasks/${taskId}`);
     return res.status(404).json({ error: 'task not found' });
   }
+  logSuccess(200, 'returned task', `GET/tasks/${taskId}`);
   return res.json(task);
 });
 
 router.put('/:id', (req, res) => {
   if (!userIslogedIn(req)) {
-    console.error('not logged in');
+    logErorr(401, 'not loged in', 'PUT/tasks/{id}');
     return res.status(401).json({ error: 'not logged in' });
   }
   const taskId = req.params.id;
   const taskFromBody = req.body;
   const taskToReplace = findTaskById(taskId, req);
   if (!taskToReplace) {
-    console.error('task not found');
+    logErorr(404, 'task not found', `PUT/tasks/${taskId}`);
     return res.status(404).json({ error: 'task not found' });
   } if (!taskFromBody.title) {
-    console.error('title can not be empty');
+    logErorr(406, 'title can not be empty', 'PUT/tasks/{id}');
     return res.status(406).json({ error: 'title can not be empty' });
   }
   const taskToSave = {
@@ -147,25 +159,25 @@ router.put('/:id', (req, res) => {
   };
   const indexOfBook = listOfTasks.indexOf(taskToReplace);
   listOfTasks.splice(indexOfBook, 1, taskToSave);
-  console.log('task edit success');
+  logSuccess(200, 'task successfully updated', 'PUT/tasks/{id}');
   return res.json(taskToSave);
 });
 
 router.delete('/:id', (req, res) => {
   if (!userIslogedIn(req)) {
-    console.error('not logged in');
+    logErorr(401, 'not loged in', 'DELETE/tasks/');
     return res.status(401).json({ error: 'not logged in' });
   }
-  const tastId = req.params.id;
-  const task = findTaskById(tastId, req);
+  const taskId = req.params.id;
+  const task = findTaskById(taskId, req);
 
   if (!task) {
-    console.error('task not found');
+    logErorr(404, 'task not found', `DELETE/tasks/${taskId}`);
     return res.status(404).json({ error: 'task not found' });
   }
   const indexOfTask = listOfTasks.indexOf(task);
   listOfTasks.splice(indexOfTask, 1);
-  console.log('task successfully delteted');
+  logSuccess(200, 'task successfully delteted', `DELETE/tasks/${taskId}`);
   return res.status(200).json(task);
 });
 
