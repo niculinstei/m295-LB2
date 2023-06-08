@@ -19,25 +19,29 @@ router.post('/login', (request, response) => {
 
   if (password === secretAdminCredentials.password) {
     request.session.email = email;
+    console.log('login successful');
     return response.status(200).json({ email: request.session.email });
   }
+  console.error('Invalid credentials');
   return response.status(401).json({ error: 'Invalid credentials' });
 });
 
 router.delete('/logout', (request, response) => {
   if (request.session.email) {
     request.session.destroy();
-    response.sendStatus(204);
-  } else {
-    response.status(401).json({ error: 'Not logged in' });
+    console.log('logout successful');
+    return response.sendStatus(204);
   }
+  console.error('not logged in');
+  return response.status(401).json({ error: 'Not logged in' });
 });
 
 router.get('/verify', (request, response) => {
   if (request.session.email) {
+    console.log('verified');
     return response.status(200).json({ email: request.session.email });
   }
-
+  console.error('not logged in');
   return response.status(401).json({ error: 'Not logged in' });
 });
 

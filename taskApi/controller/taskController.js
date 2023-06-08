@@ -79,6 +79,7 @@ function getCurrentId() {
 
 router.get('/', (req, res) => {
   if (!userIslogedIn(req)) {
+    console.error('not logged in');
     return res.status(401).json({ error: 'not logged in' });
   }
   return res.json(listOfTasks.filter((task) => task.author === req.session.email));
@@ -86,6 +87,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   if (!userIslogedIn(req)) {
+    console.error('not logged in');
     return res.status(401).json({ error: 'not logged in' });
   }
   const task = req.body;
@@ -107,6 +109,7 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   if (!userIslogedIn(req)) {
+    console.error('not logged in');
     return res.status(401).json({ error: 'not logged in' });
   }
   const taskId = req.params.id;
@@ -114,6 +117,7 @@ router.get('/:id', (req, res) => {
   const task = findTaskById(taskId, req);
 
   if (!task) {
+    console.error('task not found');
     return res.status(404).json({ error: 'task not found' });
   }
   return res.json(task);
@@ -121,12 +125,14 @@ router.get('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   if (!userIslogedIn(req)) {
+    console.error('not logged in');
     return res.status(401).json({ error: 'not logged in' });
   }
   const taskId = req.params.id;
   const taskFromBody = req.body;
   const taskToReplace = findTaskById(taskId, req);
   if (!taskToReplace) {
+    console.error('task not found');
     return res.status(404).json({ error: 'task not found' });
   } if (!taskFromBody.title) {
     console.error('title can not be empty');
@@ -147,16 +153,19 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   if (!userIslogedIn(req)) {
+    console.error('not logged in');
     return res.status(401).json({ error: 'not logged in' });
   }
   const tastId = req.params.id;
   const task = findTaskById(tastId, req);
 
   if (!task) {
+    console.error('task not found');
     return res.status(404).json({ error: 'task not found' });
   }
   const indexOfTask = listOfTasks.indexOf(task);
   listOfTasks.splice(indexOfTask, 1);
+  console.log('task successfully delteted');
   return res.status(200).json(task);
 });
 
