@@ -1,0 +1,212 @@
+openapi: "3.0.2"
+info:
+  title: Task API
+  version: "1.0"
+servers:
+  - url: http://localhost:3003
+paths:
+  /tasks:
+    get:
+      tags:
+        - task
+      summary: "Get all Tasks"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+        "401":
+          description: not logged in
+    post:
+      tags:
+        - task
+      summary: Create a new task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskForPost"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Task"
+        "401":
+          description: not logged in
+        "406":
+          description: title can not be empty
+  /tasks/{id}:
+    get:
+      tags:
+        - task
+      summary: "Get a task by id"
+      parameters:
+        - name: id
+          in: path
+          description: id of task to get
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/Task"
+        "401":
+          description: not logged in
+        "404":
+          description: task not found
+    put:
+      tags:
+        - task
+      summary: Override task by id.
+      parameters:
+        - name: id
+          in: path
+          description: id of the task to override
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskForPut"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Task"
+        "401":
+          description: Not logged in
+        "404":
+          description: Task not found
+    delete:
+      tags:
+        - task
+      summary: delete a task from tasklist by id
+      parameters:
+        - name: id
+          in: path
+          description: id of task to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: delete OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Task"
+        "401": 
+          description: not logged in
+        "404":
+          description: task not found
+  /login:
+    post:
+      tags:
+        - auth
+      summary: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+      responses:
+        "200":
+          description: login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/LoginResponse"
+        "401":
+          description: Invalid Credentials
+  /logout:
+    delete:
+      tags:
+        - auth
+      summary: logout
+      responses:
+        "204":
+          description: logout successful
+        "401": 
+          description: not logged in
+  /verify:
+    get:
+      tags:
+        - auth
+      summary: verify login
+      responses:
+        "200":
+          description: verified
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/LoginResponse"
+        "401":
+          description: not logged in
+
+
+
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        creationDate:
+          type: string
+        finishedDate:
+          type: string
+        author:
+          type: string
+    TaskForPost:
+      type: object
+      properties:
+        title:
+          type: string
+    TaskForPut:
+      type: object
+      properties:
+        title:
+          type: string
+        finishedDate: 
+          type: string
+    LoginResponse:
+      type: object
+      properties:
+        email: 
+          type: string
+    LoginBody:
+      type: object
+      properties:
+        password: 
+         type: string
+        email: 
+          type: string
