@@ -8,7 +8,7 @@ const taskController = require('./controller/taskController');
 
 const app = express();
 const port = 3003;
-const file = fs.readFileSync('./taskApi/swagger.yaml', 'utf8');
+const file = fs.readFileSync('./swagger.yaml', 'utf8');
 const swaggerDocument = YAML.parse(file);
 
 app.use(session({
