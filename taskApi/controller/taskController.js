@@ -115,7 +115,6 @@ router.post('/', (req, res) => {
     author: req.session.email,
   };
   listOfTasks.push(taskToAdd);
-  console.log('');
   logSuccess(201, 'task successfully added', 'POST/tasks/');
   return res.status(201).json(taskToAdd);
 });
