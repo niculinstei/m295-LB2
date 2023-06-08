@@ -18,7 +18,7 @@ const listOfTasks = [
     title: 'LB B erstellen',
     createDate: '2023-04-12',
     finishedDate: '',
-    author: 'Niculin Steiner',
+    author: 'banane@gurke.ch',
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const listOfTasks = [
     title: 'Dokumentation aktualisieren',
     createDate: '2023-05-15',
     finishedDate: '',
-    author: 'Erika Musterfrau',
+    author: 'banane@gurke.ch',
   },
   {
     id: 4,
@@ -68,8 +68,9 @@ function getActualDate() {
   return formattedDate = `${day}-${month}-${year}`;
 }
 
-function findTaskById(id) {
-  return listOfTasks.find((task) => task.id.toString() === id.toString());
+function findTaskById(id, req) {
+  return listOfTasks.filter((task) => task.author === req.session.email)
+    .find((task) => task.id.toString() === id.toString());
 }
 
 function getCurrentId() {
@@ -80,7 +81,7 @@ router.get('/', (req, res) => {
   if (!userIslogedIn(req)) {
     return res.status(401).json({ error: 'not logged in' });
   }
-  return res.json(listOfTasks);
+  return res.json(listOfTasks.filter((task) => task.author === req.session.email));
 });
 
 router.post('/', (req, res) => {
@@ -110,7 +111,7 @@ router.get('/:id', (req, res) => {
   }
   const taskId = req.params.id;
 
-  const task = findTaskById(taskId);
+  const task = findTaskById(taskId, req);
 
   if (!task) {
     return res.status(404).json({ error: 'task not found' });
@@ -124,7 +125,7 @@ router.put('/:id', (req, res) => {
   }
   const taskId = req.params.id;
   const taskFromBody = req.body;
-  const taskToReplace = findTaskById(taskId);
+  const taskToReplace = findTaskById(taskId, req);
   if (!taskToReplace) {
     return res.status(404).json({ error: 'task not found' });
   } if (!taskFromBody.title) {
@@ -149,7 +150,7 @@ router.delete('/:id', (req, res) => {
     return res.status(401).json({ error: 'not logged in' });
   }
   const tastId = req.params.id;
-  const task = findTaskById(tastId);
+  const task = findTaskById(tastId, req);
 
   if (!task) {
     return res.status(404).json({ error: 'task not found' });
