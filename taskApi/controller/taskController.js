@@ -12,6 +12,8 @@ router.use(session({
   cookie: {},
 }));
 
+let actualIdOfTasks = 5;
+
 const listOfTasks = [
   {
     id: 1,
@@ -74,7 +76,8 @@ function findTaskById(id, req) {
 }
 
 function getCurrentId() {
-  return listOfTasks.length + 1;
+  actualIdOfTasks += 1;
+  return actualIdOfTasks;
 }
 
 function logErorr(statusCode, message, path) {
@@ -87,7 +90,6 @@ function logSuccess(statusCode, message, path) {
 
 router.get('/', (req, res) => {
   if (!userIslogedIn(req)) {
-    console.error('not logged in');
     logErorr(401, 'not loged in', 'GET/tasks/');
     return res.status(401).json({ error: 'not logged in' });
   }
