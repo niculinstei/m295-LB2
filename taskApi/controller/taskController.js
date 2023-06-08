@@ -25,13 +25,13 @@ const listOfTasks = [
     title: 'Meeting mit Kunden',
     createDate: '2023-05-05',
     finishedDate: '',
-    author: 'Max Mustermann',
+    author: 'Max@Mustermann.ch',
   },
   {
     id: 3,
     title: 'Dokumentation aktualisieren',
     createDate: '2023-05-15',
-    finishedDate: '',
+    finishedDate: '2023-05-15',
     author: 'banane@gurke.ch',
   },
   {
@@ -39,14 +39,14 @@ const listOfTasks = [
     title: 'Code-Review durchführen',
     createDate: '2023-05-25',
     finishedDate: '',
-    author: 'John Doe',
+    author: 'John@Doe.ch',
   },
   {
     id: 5,
     title: 'Unit-Tests schreiben',
     createDate: '2023-06-01',
     finishedDate: '',
-    author: 'Jane Smith',
+    author: 'Jane@Smith.gmx',
   },
 ];
 
