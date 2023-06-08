@@ -1,0 +1,77 @@
+commit 4d2385c322b3786b1988917646b045b55c8f4975
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 14:15:32 2023 +0000
+
+    add readme.md and testing.md
+
+commit 01d7d1c514dde7132b8629b4a1a85737c1392223
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 14:12:33 2023 +0000
+
+    clean up code
+
+commit 83a16451fd39fa64199c2a298a03023c187fbb09
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 14:06:21 2023 +0000
+
+    add auto increment id
+
+commit e1f2c7aeab51ee817ebacabc66269f4c1474e9aa
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 13:58:55 2023 +0000
+
+    add postman collection
+
+commit 9ee7be1993e611ffa2bb6495d58f2d2fe67e7b8c
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 13:52:33 2023 +0000
+
+    updated example datas
+
+commit 1bffcf8624ce42642a0954a81629257f66ef52d2
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 13:39:51 2023 +0000
+
+    add logs to endpoints
+
+commit 6e2ca207aac3b043904d9c7295dddf900f6238e4
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 11:53:39 2023 +0000
+
+    add swagger spec.
+
+commit 2f8a98d53a50abc5917432850ca6f330383fefbc
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 10:54:48 2023 +0000
+
+    add logs
+
+commit d73cbbde3a801e8694fe2a5c3bf9fb53f1614db4
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 09:44:52 2023 +0000
+
+    implement that you just see the tasks you created
+
+commit c63a282d0ae0d395b417da0c024d4746e1d392af
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 09:34:31 2023 +0000
+
+    add all enpoints with auth
+
+commit aeb4971c9a13c5e109c697ca09f8ee12f34d4e5e
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 07:22:06 2023 +0000
+
+    add eslint, and restyled all .js files
+
+commit 5ffe8aeb6b53904241e471fb4b51cfa83ccb9150
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 07:17:41 2023 +0000
+
+    add taskController
+
+commit 75faab8672666111d9a3143556f3ac36b346c3c9
+Author: Niculin Steiner <niculin.steiner@ergon.ch>
+Date:   Thu Jun 8 06:34:19 2023 +0000
+
+    init
