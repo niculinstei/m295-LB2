@@ -9,8 +9,6 @@ app.use(express.json({ extended: true }));
 app.use(express.json());
 app.use('/tasks', taskController);
 
-
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-  });
-  
+  console.log(`Example app listening on port ${port}`);
+});
